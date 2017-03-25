@@ -15,7 +15,7 @@ export class LoginComponent implements OnInit {
   error = false;
   erroMessage = '';
 
-  constructor(private _formBuilder: FormBuilder, private _loginService: LoginService, private _router: Router) {
+  constructor(private _formBuilder: FormBuilder, private _loginService: LoginService) {
   }
 
   ngOnInit(): any {
@@ -26,17 +26,8 @@ export class LoginComponent implements OnInit {
   }
 
   onSignin(): void {
-    const user = {username: this.form.value.username, password: this.form.value.password};
+    const user = {username: this.form.value.email, password: this.form.value.password};
     this._loginService
-      .authenticate(user)
-      .then((isAuthenticated: boolean) => {
-        if (isAuthenticated) {
-          this._router.navigate(['/home']);
-        } else {
-          this._router.navigate(['/login']);
-        }
-      });
+      .authenticate(user);
   }
-
-  o
 }
