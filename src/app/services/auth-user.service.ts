@@ -10,7 +10,7 @@ import * as _ from '@types/lodash';
 const KEY_USER_SESSION = "USER_SESSION";
 
 @Injectable()
-export class AuthServiceService {
+export class AuthUserService {
 
   constructor(private _http: Http, private _cookieService: CookieService) {
   }
@@ -21,6 +21,7 @@ export class AuthServiceService {
       .map((response: Response) => {
         if (response.ok) {
           this._setUserOnSession(response.json());
+          return;
         }
       });
   }
