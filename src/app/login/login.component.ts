@@ -1,6 +1,8 @@
-import {Component, Input, OnInit} from '@angular/core';
-import {AuthUserService} from "../services/auth-user.service";
+import {Component, OnInit} from "@angular/core";
+
 import {Router} from "@angular/router";
+import {FormGroup, FormBuilder, Validators} from "@angular/forms";
+import {LoginService} from "./login.service";
 
 @Component({
   selector: 'app-login',
@@ -9,28 +11,32 @@ import {Router} from "@angular/router";
 })
 export class LoginComponent implements OnInit {
 
-  @Input()
-  public username = '';
+  form: FormGroup;
+  error = false;
+  erroMessage = '';
 
-  @Input()
-  public password = '';
-
-  constructor(private _authService: AuthUserService, private _router: Router) {
+  constructor(private _formBuilder: FormBuilder, private _loginService: LoginService, private _router: Router) {
   }
 
-  ngOnInit() {
+  ngOnInit(): any {
+    this.form = this._formBuilder.group({
+      email: ['', Validators.required],
+      password: ['', Validators.required]
+    });
   }
 
-  login() {
-    this._authService
-      .authenticate({username: this.username, password: this.password})
-      .subscribe(() => {
-        const hasAuthenticated: boolean = this._authService.hasUserAuthenticated();
-        if (hasAuthenticated) {
+  onSignin(): void {
+    const user = {username: this.form.value.username, password: this.form.value.password};
+    this._loginService
+      .authenticate(user)
+      .then((isAuthenticated: boolean) => {
+        if (isAuthenticated) {
           this._router.navigate(['/home']);
         } else {
           this._router.navigate(['/login']);
         }
       });
   }
+
+  o
 }
