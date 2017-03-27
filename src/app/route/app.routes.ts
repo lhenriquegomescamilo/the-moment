@@ -8,6 +8,8 @@ import {AuthGuardService} from "../services/auth-guard.service";
 
 const APP_ROUTERS = [
   {path: 'contacts', loadChildren: 'app/contacts/contacts.module#ContactsModule', canActive: [AuthGuardService]},
+  {path: 'employers', loadChildren: 'app/employers/employers.module#EmployersModule ', canActive: [AuthGuardService]},
+//ContactsModule
   {path: 'login', component: LoginComponent},
 ];
 export const ROUTING: ModuleWithProviders = RouterModule.forRoot(APP_ROUTERS);
