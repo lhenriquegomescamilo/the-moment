@@ -1,4 +1,4 @@
-import {Component, OnInit} from "@angular/core";
+import {Component, OnDestroy, OnInit} from "@angular/core";
 
 import {Router} from "@angular/router";
 import {FormGroup, FormBuilder, Validators} from "@angular/forms";
@@ -9,7 +9,7 @@ import {LoginService} from "./login.service";
   templateUrl: './login.component.html',
   styleUrls: ['./login.component.css']
 })
-export class LoginComponent implements OnInit {
+export class LoginComponent implements OnInit, OnDestroy {
 
   form: FormGroup;
   error = false;
@@ -29,5 +29,9 @@ export class LoginComponent implements OnInit {
     const user = {username: this.form.value.email, password: this.form.value.password};
     this._loginService
       .authenticate(user);
+  }
+
+  ngOnDestroy(): any {
+    this._loginService.unsubscribe();
   }
 }

@@ -10,17 +10,22 @@ import {AuthUserService} from "./services/auth-user.service";
 import {CookieService} from "angular2-cookie/core";
 import {AuthGuardService} from "./service/auth-guard.service";
 import {LoginService} from "./login/login.service";
+import { HomeComponent } from './home/home.component';
+import {HomeModule} from "./home/home.module";
+import { HeaderComponent } from './header/header.component';
 
 @NgModule({
   declarations: [
     AppComponent,
-    LoginComponent
+    LoginComponent,
+    HeaderComponent
   ],
   imports: [
     BrowserModule,
     FormsModule,
     ReactiveFormsModule,
     HttpModule,
+    HomeModule,
     ROUTING
   ],
   providers: [CookieService, LoginService, AuthGuardService, AuthUserService],
